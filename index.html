@@ -57,7 +57,7 @@
     <p>جاري تجهيز نظام مسح الدعوات 🤍</p>
 
   </div>
-<button onclick="testCamera()" style="margin-top:20px;padding:15px;background:#a7864e;color:white;border:0;border-radius:10px;font-size:18px;">
+<button onclick="scanInvitation()" style="margin-top:20px;padding:15px;background:#a7864e;color:white;border:0;border-radius:10px;font-size:18px;">
 
   📷 اختبار الكاميرا
 
@@ -98,7 +98,77 @@ async function testCamera() {
   }
 
 }
+async function scanInvitation() {
 
+  const status = document.getElementById('cameraStatus');
+
+  const video = document.getElementById('cameraPreview');
+
+  try {
+
+    if (!('BarcodeDetector' in window)) {
+
+      status.textContent = '🔴 هذا المتصفح لا يدعم قراءة الباركود بهذه الطريقة';
+
+      return;
+
+    }
+
+    const detector = new BarcodeDetector({
+
+      formats: ['qr_code']
+
+    });
+
+    const stream = await navigator.mediaDevices.getUserMedia({
+
+      video: { facingMode: 'environment' },
+
+      audio: false
+
+    });
+
+    video.srcObject = stream;
+
+    await video.play();
+
+    status.textContent = '📷 وجّهي الكاميرا إلى باركود الدعوة';
+
+    async function detect() {
+
+      if (!video.srcObject) return;
+
+      const codes = await detector.detect(video);
+
+      if (codes.length > 0) {
+
+        const qrText = codes[0].rawValue;
+
+        stream.getTracks().forEach(track => track.stop());
+
+        video.srcObject = null;
+
+        status.textContent = '🟢 تمت قراءة الباركود';
+
+        alert('تمت قراءة الباركود:\n' + qrText);
+
+        return;
+
+      }
+
+      requestAnimationFrame(detect);
+
+    }
+
+    detect();
+
+  } catch (error) {
+
+    status.textContent = '🔴 تعذر تشغيل قارئ الباركود: ' + error.message;
+
+  }
+
+}
 </script>
 </body>
 
