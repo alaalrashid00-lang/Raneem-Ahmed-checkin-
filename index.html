@@ -57,7 +57,49 @@
     <p>جاري تجهيز نظام مسح الدعوات 🤍</p>
 
   </div>
+<button onclick="testCamera()" style="margin-top:20px;padding:15px;background:#a7864e;color:white;border:0;border-radius:10px;font-size:18px;">
 
+  📷 اختبار الكاميرا
+
+</button>
+
+<p id="cameraStatus"></p>
+
+<video id="cameraPreview" autoplay playsinline muted
+
+       style="width:100%;max-width:350px;border-radius:12px;"></video>
+
+<script>
+
+async function testCamera() {
+
+  const status = document.getElementById('cameraStatus');
+
+  try {
+
+    status.textContent = 'جاري تشغيل الكاميرا...';
+
+    const stream = await navigator.mediaDevices.getUserMedia({
+
+      video: { facingMode: 'environment' },
+
+      audio: false
+
+    });
+
+    document.getElementById('cameraPreview').srcObject = stream;
+
+    status.textContent = '🟢 الكاميرا اشتغلت بنجاح!';
+
+  } catch (error) {
+
+    status.textContent = '🔴 ' + (error.message || String(error));
+
+  }
+
+}
+
+</script>
 </body>
 
 </html>
