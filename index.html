@@ -118,7 +118,19 @@ async function scanInvitation() {
 
         status.textContent = '🟢 تمت قراءة الباركود بنجاح';
 
-        alert('تمت قراءة الباركود:\n' + qrText);
+        const invitationUrl = new URL(qrText);
+
+const token = invitationUrl.searchParams.get('token');
+
+if (!token) {
+
+  status.textContent = '🔴 باركود الدعوة غير صالح';
+
+  return;
+
+}
+
+status.textContent = '🟡 تم قراءة الدعوة، وجاري التحقق منها';
 
       },
 
