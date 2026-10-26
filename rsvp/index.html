@@ -1,0 +1,203 @@
+
+
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>تأكيد الحضور | رنيم وأحمد</title>
+
+<style>
+
+* { box-sizing: border-box; }
+
+body {
+
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  color: white;
+
+  background: #827c78 url("background.jpg") center/cover fixed;
+
+}
+
+.page {
+
+  min-height: 100dvh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 50px 22px;
+
+  background: rgba(50, 43, 46, .12);
+
+}
+
+.logo {
+
+  font: italic 110px Georgia, serif;
+
+  letter-spacing: -18px;
+
+  padding-left: 10px;
+
+  line-height: 1;
+
+}
+
+.names {
+
+  font-size: 18px;
+
+  letter-spacing: 5px;
+
+  direction: ltr;
+
+  margin-top: 25px;
+
+}
+
+h1 {
+
+  font-size: clamp(32px, 8vw, 52px);
+
+  font-weight: normal;
+
+  margin: 90px 0 15px;
+
+}
+
+.subtitle {
+
+  font-size: 20px;
+
+  line-height: 1.8;
+
+  margin: 0 0 55px;
+
+}
+
+.buttons {
+
+  display: flex;
+
+  width: 100%;
+
+  max-width: 520px;
+
+  gap: 14px;
+
+}
+
+button {
+
+  flex: 1;
+
+  min-height: 130px;
+
+  border-radius: 28px;
+
+  border: 2px solid #f8e9e4;
+
+  font: inherit;
+
+  font-size: 22px;
+
+  cursor: pointer;
+
+  padding: 16px 8px;
+
+}
+
+.yes { background: #a77d83; color: white; }
+
+.no { background: #e4d1c4; color: #775b55; }
+
+.symbol { display: block; font-size: 33px; margin-bottom: 14px; }
+
+#message {
+
+  font-size: 20px;
+
+  line-height: 1.8;
+
+  margin-top: 25px;
+
+}
+
+@media (max-width: 370px) {
+
+  button { font-size: 18px; }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<main class="page">
+
+  <div class="logo">AR</div>
+
+  <div class="names">RANEEM & AHMED</div>
+
+  <h1>وجودكِ يكمل فرحتنا</h1>
+
+  <p class="subtitle">يسعدنا معرفة ردّكِ على دعوتنا</p>
+
+  <div class="buttons">
+
+    <button class="yes" onclick="reply('yes')">
+
+      <span class="symbol">✓</span>
+
+      يشرفني الحضور
+
+    </button>
+
+    <button class="no" onclick="reply('no')">
+
+      <span class="symbol">✉</span>
+
+      أعتذر عن الحضور
+
+    </button>
+
+  </div>
+
+  <p id="message" role="status"></p>
+
+</main>
+
+<script>
+
+async function reply(choice) {
+
+  const message = document.getElementById("message");
+
+  message.textContent = "جاري تجهيز استقبال الردود";
+
+}
+
+</script>
+
+</body>
+
+</html>
