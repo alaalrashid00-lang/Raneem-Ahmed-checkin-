@@ -139,7 +139,45 @@ if (!token) {
 }
 
 status.textContent = '🟡 تم قراءة الدعوة، وجاري التحقق منها';
+try {
 
+  const response = await fetch(
+
+    'https://script.google.com/macros/s/AKfycbzWaw6nmzE2w5IGMkLpO2bLvJXNFU7L2vNb1w1wb1qfQLgXzzrF4tAA_3uap4gEsvH_/exec',
+
+    {
+
+      method: 'POST',
+
+      headers: { 'Content-Type': 'text/plain' },
+
+      body: JSON.stringify({ token })
+
+    }
+
+  );
+
+  const result = await response.json();
+
+  if (result.valid) {
+
+    status.textContent = result.used
+
+      ? '🟠 تم استخدام هذه الدعوة مسبقًا'
+
+      : '🟢 الدعوة صحيحة، أهلًا وسهلًا';
+
+  } else {
+
+    status.textContent = '🔴 الدعوة غير صالحة';
+
+  }
+
+} catch (error) {
+
+  status.textContent = '🟡 تعذر الاتصال بنظام التحقق';
+
+}
       },
 
       function() {}
